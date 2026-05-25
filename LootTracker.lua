@@ -501,17 +501,11 @@ windower.register_event('incoming text', function(original)
     -- Skip key item messages ("Obtained key item: ...")
     if text:lower():find('key item', 1, true) then return end
 
-    -- Extract name (and optional count) from the three known patterns
+    -- Only match the "Obtained: <item>." colon form (special/event obtainments).
+    -- Treasure pool messages ("Player obtains a ...") are already captured via 0x0D2.
     local name, count
     count = 1
-    name = text:match('[Oo]btain[a-z]*:%s+(.-)%.')
-    if not name then
-        name = text:match('[Oo]btain[a-z]*%s+[Aa]n?%s+(.-)%.')
-    end
-    if not name then
-        local qty, n = text:match('[Oo]btain[a-z]*%s+(%d+)%s+(.-)%.')
-        if qty then count, name = tonumber(qty), n end
-    end
+    name = text:match('[Oo]btained?:%s+(.-)%.')
     if not name then return end
 
     name = name:match('^%s*(.-)%s*$')  -- trim
