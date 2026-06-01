@@ -33,6 +33,15 @@ When enabled, any item that lands in your inventory and is already stored in a s
 ### Auto-sell
 Maintains a persistent sell list. When the NPC sell window is open, `//lt sell` walks through every matching inventory item and sells it via injected packets, one at a time with a 1-second gap between items.
 
+### AH price lookup
+Fetches recent auction house sale data from FFXIAH for items dropped this session, displayed in a third draggable panel. Requires your server to be configured first:
+
+```
+//lt server ragnarok
+```
+
+Once set, use `//lt price` to fetch prices for all session loot, or `//lt price <item name>` for a single item. Prices are cached for 24 hours; use `//lt price refresh` to bypass the cache.
+
 ### Clipboard copy
 - `//lt copy` (also **Ctrl+Shift+C**) — copies the name of the last item you used, equipped, or appraised at an NPC.
 - `//lt copyall` — copies a CSV of your entire bag contents (all bags) to clipboard.
@@ -55,6 +64,11 @@ Maintains a persistent sell list. When the NPC sell window is open, `//lt sell` 
 | `//lt drop` | Drop all slip-stored items from inventory now |
 | `//lt refresh` | Reload the FindAll snapshot from disk |
 | `//lt shared` | Show stackable items split across all characters |
+| `//lt server <name>` | Set your FFXIAH server for price lookups (e.g. `ragnarok`, `asura`) |
+| `//lt price` | Fetch AH prices for this session's loot |
+| `//lt price <item name>` | Fetch AH price for a specific item |
+| `//lt price refresh` | Force-refresh session loot prices (bypass 24h cache) |
+| `//lt price refresh <name>` | Force-refresh price for a specific item |
 | `//lt sell` | Sell inventory items on the sell list (NPC window must be open) |
 | `//lt sell preview` | Preview what `//lt sell` would sell |
 | `//lt sell add <name>` | Add an item to the sell list |
@@ -84,3 +98,4 @@ Settings are saved to `<Windower>/addons/LootTracker/data/settings.xml` and pers
 - Display panel positions and appearance
 - `AutoDrop` toggle state
 - `SellList` contents
+- `Server` — your FFXIAH server name (set via `//lt server <name>`)
